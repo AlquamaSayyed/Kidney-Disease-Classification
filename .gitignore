@@ -5,3 +5,7 @@ venv
 logs
 \logs
 .ipynb_checkpoints
+artifacts
+config\*
+kidney-ct-scan-dataset.zip
+__pycache__

@@ -9,3 +9,6 @@ artifacts
 config\*
 kidney-ct-scan-dataset.zip
 __pycache__
+infomlflow.txt
+mlflow.yaml
+mlruns

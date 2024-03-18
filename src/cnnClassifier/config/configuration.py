@@ -1,7 +1,7 @@
 from src.cnnClassifier.constants import *
 from src.cnnClassifier.utils.common import read_ymal, create_directories
 from src.cnnClassifier.entity.config_entity import (DataIngestionConfig, PrepareBaseModelConfig,
-TrainingConfig)
+TrainingConfig, EvaluationConfig)
 import os
 
 
@@ -9,6 +9,7 @@ class ConfigurationManager:
     def __init__(self, config_filepath=CONFIG_FILE_PATH, params_filepath=PARAMS_FILE_PATH):
         self.config = read_ymal(config_filepath)
         self.params = read_ymal(params_filepath)
+        self.mlflow_details = read_ymal(Path("mlflow.yaml"))
         create_directories([self.config.artifact_root])
 
     def data_ingestion_config(self) -> DataIngestionConfig:
@@ -52,4 +53,14 @@ class ConfigurationManager:
             params_batch_size=params.BATCH_SIZE,
             params_is_augmentation=params.AUGMENTATION,
             params_image_size=params.IMAGE_SIZE
+        )
+
+    def get_evaluation_config(self) -> EvaluationConfig:
+        return EvaluationConfig(
+            path_of_model="artifacts/training/model.h5",
+            training_data="artifacts/data_ingestion/kidney-ct-scan-dataset",
+            all_params=self.params,
+            mlflow_uri=self.mlflow_details.MLFLOW_TRACKING_URI,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE
         )

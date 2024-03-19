@@ -28,7 +28,7 @@ class PrepareBaseModel:
         # flatten layer
         flatten_in = tf.keras.layers.Flatten()(model.output)
         # output layer
-        prediction = tf.keras.layers.Dense(classes, activation='softmax')(flatten_in)
+        prediction = tf.keras.layers.Dense(units=classes, activation='softmax')(flatten_in)
         # defining the model
         full_model = tf.keras.models.Model(
             inputs=model.input,

@@ -12,3 +12,5 @@ __pycache__
 infomlflow.txt
 mlflow.yaml
 mlruns
+cnncls
+cnnClassifier.egg-info
